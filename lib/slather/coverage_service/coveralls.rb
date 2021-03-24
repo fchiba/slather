@@ -160,7 +160,7 @@ module Slather
         if ci_service == :travis_ci || ci_service == :travis_pro
           if travis_job_id
             if ci_service == :travis_ci
-              
+
               if coverage_access_token.to_s.strip.length > 0
                 raise StandardError, "Access token is set. Uploading coverage data for public repositories doesn't require an access token."
               end
@@ -170,7 +170,7 @@ module Slather
                 :service_name => "travis-ci",
                 :source_files => coverage_files.map(&:as_json)
               }.to_json
-            elsif ci_service == :travis_pro              
+            elsif ci_service == :travis_pro
 
               if coverage_access_token.to_s.strip.length == 0
                 raise StandardError, "Access token is not set. Uploading coverage data for private repositories requires an access token."
@@ -277,8 +277,8 @@ module Slather
 
           curl_result = `curl -s --form json_file=@#{f.path} #{coveralls_api_jobs_path}`
 
-          if curl_result.is_a? String 
-            curl_result_json = JSON.parse(curl_result)          
+          if curl_result.is_a? String
+            curl_result_json = JSON.parse(curl_result)
 
             if curl_result_json["error"]
               error_message = curl_result_json["message"]
@@ -287,7 +287,7 @@ module Slather
           end
 
         rescue StandardError => e
-          FileUtils.rm(f)
+          #FileUtils.rm(f)
           raise e
         end
         FileUtils.rm(f)
